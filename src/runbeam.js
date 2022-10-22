@@ -15,7 +15,7 @@ const input = {
         // feriepengerkonto: 0,
         // bufferkonto: 0,
     },
-    bills: [
+    payouts: [
         {
             title: "KF",
             amount: 2013,

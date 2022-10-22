@@ -1,22 +1,22 @@
 
-function isAhead(bill, input){
+function isAhead(payout, input){
 
-    if (!bill.due && isNaN(bill.monthly))
-        throw "Bill without due date or monthly value";
+    if (!payout.due && isNaN(payout.monthly))
+        throw "payout without due date or monthly value";
 
-    if (bill.due > input.today)
+    if (payout.due > input.today)
         return true;
 
-    if (isNaN(bill.monthly))
+    if (isNaN(payout.monthly))
         return false;
 
-    let billIsAfterPayDay = bill.monthly >= input.bigPayDay;
+    let payoutIsAfterPayDay = payout.monthly >= input.bigPayDay;
     let todayIsAfterPayDay = input.today.getDate() > input.bigPayDay;
-    if (todayIsAfterPayDay && !billIsAfterPayDay)
+    if (todayIsAfterPayDay && !payoutIsAfterPayDay)
         return true;
-    else if (!todayIsAfterPayDay && billIsAfterPayDay)
+    else if (!todayIsAfterPayDay && payoutIsAfterPayDay)
         return false;
-    else if (bill.monthly > input.today.getDate())
+    else if (payout.monthly > input.today.getDate())
         return true;
     else 
         return false;

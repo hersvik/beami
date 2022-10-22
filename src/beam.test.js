@@ -5,7 +5,7 @@ const input = {
         visa: 111,
         regningsKonto: 222,
     },
-    bills: [
+    payouts: [
         {
             title: "Single bill",
             amount: 5,
@@ -31,11 +31,11 @@ const input = {
 const beam = require("./beam");
 
 test('Accounts sum minus bills before coming pay day should be correct', () => {
-    expect(beam(input).sumMinusBills).toBe(111+222 - 300 - 5);
+    expect(beam(input).balanceWithPayouts).toBe(111+222 - 300 - 5);
 }) 
 
 test('Bills ahead before pay day should be listed', () => {
-    expect(beam(input).billsAhead).toEqual([
+    expect(beam(input).payoutsAhead).toEqual([
         {
             title: "Single bill",
             amount: 5,

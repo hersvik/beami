@@ -4,7 +4,7 @@ function beam(input){
 
     let accountSum = sumObjectValues(input.accounts)
     
-    let billsAheadSum = input.bills.reduce(
+    let payoutsAheadSum = input.payouts.reduce(
         (prev, curr) => isAhead(curr, input) 
                             ? prev + curr.amount 
                             : prev, 
@@ -13,9 +13,9 @@ function beam(input){
 
     return {
         sumNow: accountSum,
-        billsAheadSum: billsAheadSum,
-        sumMinusBills: accountSum - billsAheadSum,
-        billsAhead: input.bills.filter(b => isAhead(b, input)),
+        payoutsAheadSum: payoutsAheadSum,
+        balanceWithPayouts: accountSum - payoutsAheadSum,
+        payoutsAhead: input.payouts.filter(b => isAhead(b, input)),
         today: todayMessage(input),
     };
 }
