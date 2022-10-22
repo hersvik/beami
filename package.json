@@ -1,0 +1,14 @@
+{
+  "name": "beam",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Kjetil Hersvik",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.1.2"
+  }
+}
