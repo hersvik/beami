@@ -1,3 +1,4 @@
+const daysLeft = require("./daysLeft");
 const isAhead = require("./isAhead");
 
 function beam(input){
@@ -12,11 +13,12 @@ function beam(input){
     );
 
     return {
+        payoutsAhead: input.payouts.filter(b => isAhead(b, input)),
         sumNow: accountSum,
         payoutsAheadSum: payoutsAheadSum,
         balanceWithPayouts: accountSum - payoutsAheadSum,
-        payoutsAhead: input.payouts.filter(b => isAhead(b, input)),
         today: todayMessage(input),
+        daysUntilBigPayDay: daysLeft(input.bigPayDay, input.today),
     };
 }
 
