@@ -12,13 +12,16 @@ function beam(input){
         0
     );
 
+    const balanceWithPayouts = accountSum - payoutsAheadSum
     return {
         payoutsAhead: input.payouts.filter(b => isAhead(b, input)),
         sumNow: accountSum,
         payoutsAheadSum: payoutsAheadSum,
-        balanceWithPayouts: accountSum - payoutsAheadSum,
+        balanceWithPayouts: balanceWithPayouts,
         today: todayMessage(input),
         daysUntilBigPayDay: daysLeft(input.bigPayDay, input.today),
+        remainingPerDay: (balanceWithPayouts/daysLeft(input.bigPayDay, input.today)).toFixed(0),
+        extrapolatedResult: balanceWithPayouts - input.dailyBudget * daysLeft(input.bigPayDay, input.today) + " kr",
     };
 }
 
@@ -34,7 +37,7 @@ function todayMessage(input){
     if(realToday > input.today || realToday < input.today)
         return "ALERT !!! - " + input.today + " NOT really today !!!";
     else
-        return "(ok is today) " + input.today;
+        return "(ok it's today) " + input.today;
 }
 
 module.exports = beam;

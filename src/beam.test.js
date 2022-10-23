@@ -1,5 +1,6 @@
 const input = {
     today: new Date("2022-10-17"),
+    dailyBudget: 10,
     bigPayDay: 25,
     accounts: {
         visa: 111,
@@ -47,4 +48,12 @@ test('Bills ahead before pay day should be listed', () => {
             monthly: 24,
         },
     ]);
+})
+
+test('Remaining per day (indirectly tests daysLeft)', () => {
+    expect(beam(input).remainingPerDay).toBe("4");
+})
+
+test('ExtrapolatedResult', () => {
+    expect(beam(input).extrapolatedResult).toBe("-52 kr")
 })
