@@ -13,11 +13,22 @@ function beam(input){
     );
 
     const balanceWithPayouts = accountSum - payoutsAheadSum
+    
+    const compareChronological = (a, b) => {
+        let dayA = a.due && a.due.getDate() || a.monthly;
+        let dayB = b.due && b.due.getDate() || b.monthly;
+        dayA += (input.today.getDate() > dayA) && 31;
+        dayB += (input.today.getDate() > dayB) && 31;
+        return dayA - dayB;
+    }
+    
     return {
-        payoutsAhead: input.payouts.filter(b => isAhead(b, input)),
+        payoutsAhead: input.payouts.filter(b => isAhead(b, input)).sort(compareChronological),
+
         sumNow: accountSum,
         payoutsAheadSum: payoutsAheadSum,
         balanceWithPayouts: balanceWithPayouts,
+
         today: todayMessage(input),
         daysUntilBigPayDay: daysLeft(input.bigPayDay, input.today),
         remainingPerDay: (balanceWithPayouts/daysLeft(input.bigPayDay, input.today)).toFixed(0),
