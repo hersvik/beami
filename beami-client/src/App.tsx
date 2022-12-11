@@ -6,7 +6,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Beami</h1>
+      <h1>Beami test deploy2</h1>
     </div>
   )
 }
