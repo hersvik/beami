@@ -27,7 +27,7 @@ const uiConfig = {
   ],
 };
 
-function SignInScreen() {
+export function SignInScreen() {
   return (
     <div>
       <h1>My App</h1>
@@ -36,5 +36,3 @@ function SignInScreen() {
     </div>
   );
 }
-
-export default SignInScreen

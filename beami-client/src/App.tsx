@@ -1,9 +1,11 @@
 import { useState } from 'react'
+import { Routes, Route } from "react-router-dom"
 import './App.css'
 // import { initializeApp } from "firebase/app";
-import SignInScreen from './SignInScreen';
+import {Home} from './components/Home';
+import {OkLoggedIn} from './components/OkLoggedIn';
 
-function App() {
+export function App() {
   // // Import the functions you need from the SDKs you need
   // // TODO: Add SDKs for Firebase products that you want to use
   // // https://firebase.google.com/docs/web/setup#available-libraries
@@ -25,10 +27,12 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Beami test deploy2</h1>
-      <SignInScreen />
+      <Routes>
+        <Route path="/" element={ <Home/> } />
+        <Route path="/signedIn" element={ <OkLoggedIn/> } />
+
+      </Routes>
     </div>
   )
 }
 
-export default App
