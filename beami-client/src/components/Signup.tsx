@@ -43,7 +43,7 @@ const Signup = () => {
                             </label>
                             <input
                                 type="email"
-                                label="Email address"
+                                // label="Email address"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}  
                                 required                                    
@@ -57,7 +57,7 @@ const Signup = () => {
                             </label>
                             <input
                                 type="password"
-                                label="Create password"
+                                // label="Create password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)} 
                                 required                                 
