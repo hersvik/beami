@@ -1,7 +1,7 @@
-import {SignInScreen} from '../SignInScreen';
 import { collection, getDocs } from "firebase/firestore";
-import {db} from '../../firestore';
+import {db} from '../../firebaseConfig';
 import { useState, useEffect } from "react";
+import { Timestamp } from "firebase/firestore"
 
 export function Home() {
 
@@ -12,8 +12,8 @@ export function Home() {
       await getDocs(collection(db, "deposit"))
           .then((querySnapshot)=>{               
               const newData = querySnapshot.docs
-                  .map((doc) => ({...doc.data(), id:doc.id }));
-              setDeposits(newData);                
+                  .map((doc:any) => ({...doc.data(), id:doc.id }));
+              setDeposits(newData.sort((a,b) => a.date.seconds - b.date.seconds));                
               console.log(deposits, newData);
           })
      
@@ -25,9 +25,14 @@ export function Home() {
 
 return (
   <div className="home">
-      <h1>Beami test deploy2</h1>
-      <SignInScreen />
-      {deposits.map((d: any) => (<p key={d.id}>{d.amount}</p>))}
+      <h1>Flaskebeløp</h1>
+      {deposits.map((d: any) => 
+        (<p key={d.id}>kr. {d.amount} 
+          <span style={{color: "silver", paddingLeft: "1em", paddingRight: "1em"}}>
+            {(d.date as Timestamp).toDate().toLocaleDateString() }
+          </span>
+          {d.comment}
+        </p>))}
   </div>
 )
 }

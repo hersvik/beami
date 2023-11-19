@@ -3,6 +3,8 @@ import { Routes, Route } from "react-router-dom"
 import './App.css'
 // import { initializeApp } from "firebase/app";
 import {Home} from './components/Home';
+import SignUp from './components/Signup';
+import Login from './components/Login';
 import {OkLoggedIn} from './components/OkLoggedIn';
 
 export function App() {
@@ -29,7 +31,9 @@ export function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={ <Home/> } />
-        <Route path="/signedIn" element={ <OkLoggedIn/> } />
+        <Route path="/add" element={ <OkLoggedIn/> } />
+        <Route path="/signup" element={ <SignUp/> } />
+        <Route path="/login" element={ <Login/> } />
 
       </Routes>
     </div>
