@@ -4,6 +4,7 @@ import {useState, useEffect} from "react";
 import { useNavigate } from 'react-router-dom';
 import {  signOut, onAuthStateChanged } from "firebase/auth";
 import {auth} from '../../firebaseConfig';
+import {Home} from './Home';
 
 export function OkLoggedIn() {
   const navigate = useNavigate();
@@ -32,11 +33,14 @@ export function OkLoggedIn() {
         const payload = {
           amount: parseInt(input),    
           date: new Date(),
+          gruppe,
           comment,
         };
         const docRef = await addDoc(collection(db, "deposit"), payload);
         console.log("Document written with ID: ", docRef.id);
         setInput("");
+        setComment("");
+        setDateLoaded(new Date().toString());
         setTrack(track + JSON.stringify(payload, null, 2))
       } catch (e) {
         console.error("Error adding document: ", e);
@@ -53,7 +57,6 @@ export function OkLoggedIn() {
 
     if(Number.isInteger(intValue)) {
       setInput(intValue.toString());
-      // return;
     }
     else{
       setInput(prev => prev)
@@ -64,9 +67,16 @@ export function OkLoggedIn() {
     setComment(event.target.value);
   }
 
+  const handleGruppe = (event: any) => {
+    setGruppe(event.target.value);
+  }
+
   const [input, setInput] = useState("");
   const [track, setTrack] = useState("");
   const [comment, setComment] = useState("");
+  const [gruppe, setGruppe] = useState("");
+
+  const [dateLoaded, setDateLoaded] = useState(new Date().toString());
 
   
   const handleLogout = () => {               
@@ -80,10 +90,20 @@ export function OkLoggedIn() {
   }
   return (
     <div className="ok_logged_in">
-        <h1>OK logged in</h1>
-        <input type="number" value={input} onChange={handleChange}></input>
-        <input type="text" value={comment} onChange={handleComment}></input>
-        <button onClick={save}>{parseInt(input) || "Invalid amount"}</button>
+        <h1>Nytt flaskebeløp</h1>
+        <input type="number" placeholder="kr." value={input} onChange={handleChange}></input><br />
+        <input type="text" placeholder="comment" value={comment} onChange={handleComment}></input><br />
+        <select value={gruppe} onChange={handleGruppe}>
+          <option value="">Gr.</option>
+          <option>gruppe 1</option>
+          <option>gruppe 2</option>
+          <option>gruppe 3</option>
+          <option>gruppe 4</option>
+          <option>gruppe 5</option>
+          <option>gruppe 6</option>
+          <option>gruppe 7</option>
+        </select>
+        Send inn: <button onClick={save} disabled={isNaN(parseInt(input))}>kr. {parseInt(input) || "Invalid amount"}</button>
         <pre>
           {track}
         </pre>
@@ -94,6 +114,7 @@ export function OkLoggedIn() {
         <button onClick={handleLogout}>
                         Logout
         </button>
+        <Home dateLoaded={dateLoaded}/>
     </div>
   )
 }

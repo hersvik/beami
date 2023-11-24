@@ -3,7 +3,7 @@ import {db} from '../../firebaseConfig';
 import { useState, useEffect } from "react";
 import { Timestamp } from "firebase/firestore"
 
-export function Home() {
+export function Home({dateLoaded = "* oppdatert kl. "+new Date().toLocaleTimeString() + " den " + new Date().toLocaleDateString()}) {
 
   const [deposits, setDeposits] = useState<any>([]);
  
@@ -21,18 +21,20 @@ export function Home() {
  
   useEffect(()=>{
       fetchPost();
-  }, [])
+  }, [dateLoaded])
 
-return (
-  <div className="home">
-      <h1>Flaskebeløp</h1>
-      {deposits.map((d: any) => 
-        (<p key={d.id}>kr. {d.amount} 
-          <span style={{color: "silver", paddingLeft: "1em", paddingRight: "1em"}}>
-            {(d.date as Timestamp).toDate().toLocaleDateString() }
-          </span>
-          {d.comment}
-        </p>))}
-  </div>
-)
+  return (
+    <div className="home">
+        <h1>Flaskebeløp</h1>
+        {deposits.map((d: any) => 
+          (<p key={d.id}>kr. {d.amount}
+            <span style={{color: "silver", paddingLeft: "1em", paddingRight: "1em"}}>
+              {(d.date as Timestamp).toDate().toLocaleDateString() }
+            </span>
+            {d.gruppe} &nbsp;
+            {d.comment}
+          </p>))}
+          <span style={{color: "silver"}}>{dateLoaded}</span>
+    </div>
+  )
 }
